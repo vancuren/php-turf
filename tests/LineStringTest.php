@@ -9,9 +9,9 @@ class LineStringTest extends TestCase
     public function testGetPoints()
     {
         $points = [
-            new Point(0, 0),
-            new Point(1, 1),
-            new Point(2, 2)
+            [0, 0],
+            [1, 1],
+            [2, 2]
         ];
 
         $lineString = new LineString($points);

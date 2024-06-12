@@ -3,43 +3,61 @@
 namespace Vancuren\PhpTurf\PhpTurf;
 
 class Polygon {
-    private $vertices;
 
-    public function __construct(array $vertices)
+    public $type = 'Feature';
+
+    public $geometry = [
+        'type' => 'Polygon',
+        'coordinates' => [[]]
+    ];
+
+    public $properties = [];
+
+    public function __construct(array $coords, array $properties = [])
     {
-        $this->vertices = $vertices;
+        $this->geometry['coordinates'] = $coords;
+        $this->properties = $properties;
     }
 
-    public function area()
-    {
-        $vertices = $this->vertices;
-        $numVertices = count($vertices);
-        $area = 0;
+    // public function area()
+    // {
+    //     $vertices = $this->geometry['coordinates'][0];
+    //     $numVertices = count($vertices);
+    //     $area = 0;
 
-        for ($i = 0; $i < $numVertices; $i++) {
-            $j = ($i + 1) % $numVertices;
-            $area += $vertices[$i]->longitude * $vertices[$j]->latitude;
-            $area -= $vertices[$j]->longitude * $vertices[$i]->latitude;
-        }
+    //     for ($i = 0, $j = $numVertices - 1; $i < $numVertices; $j = $i++) {
+    //         $xi = $vertices[$i][0];
+    //         $yi = $vertices[$i][1];
+    //         $xj = $vertices[$j][0];
+    //         $yj = $vertices[$j][1];
+    //         $area += ($xi + $xj) * ($yj - $yi);
+    //     }
 
-        $area = abs($area) / 2.0;
-        return $area;
-    }
+    //     $area = abs($area) / 2.0;
+    //     return $area;
+    // }
 
     public function getVertices()
     {
-        return $this->vertices;
+        return $this->geometry['coordinates'][0];
     }
 
     public function containsPoint(Point $point)
     {
-        $vertices = $this->vertices;
+        $vertices = $this->geometry['coordinates'][0];
         $numVertices = count($vertices);
         $contains = false;
 
         for ($i = 0, $j = $numVertices - 1; $i < $numVertices; $j = $i++) {
-            if ((($vertices[$i]->latitude > $point->latitude) != ($vertices[$j]->latitude > $point->latitude)) &&
-                ($point->longitude < ($vertices[$j]->longitude - $vertices[$i]->longitude) * ($point->latitude - $vertices[$i]->latitude) / ($vertices[$j]->latitude - $vertices[$i]->latitude) + $vertices[$i]->longitude)) {
+            $xi = $vertices[$i][0];
+            $yi = $vertices[$i][1];
+            $xj = $vertices[$j][0];
+            $yj = $vertices[$j][1];
+
+            $intersect = (($yi > $point->geometry['coordinates'][1]) != ($yj > $point->geometry['coordinates'][1])) &&
+                         ($point->geometry['coordinates'][0] < ($xj - $xi) * ($point->geometry['coordinates'][1] - $yi) / ($yj - $yi) + $xi);
+
+            if ($intersect) {
                 $contains = !$contains;
             }
         }
@@ -49,45 +67,15 @@ class Polygon {
 
     public function getGeometry() 
     {
-        $vertices = $this->vertices;
-        $numVertices = count($vertices);
-        $geometry = [];
-
-        for ($i = 0; $i < $numVertices; $i++) {
-            $geometry[] = [$vertices[$i]->longitude, $vertices[$i]->latitude];
-        }
-
-        $geometry[] = [$vertices[0]->longitude, $vertices[0]->latitude];
-
-        return [
-            'type' => 'Polygon',
-            'coordinates' => [
-                $geometry
-            ]
-        ];
+        return $this->geometry;
     }
 
-    public function toGeoJSON($properties = [])
+    public function toGeoJSON()
     {
-        $vertices = $this->vertices;
-        $numVertices = count($vertices);
-        $coordinates = [];
-
-        for ($i = 0; $i < $numVertices; $i++) {
-            $coordinates[] = [$vertices[$i]->longitude, $vertices[$i]->latitude];
-        }
-
-        $coordinates[] = [$vertices[0]->longitude, $vertices[0]->latitude];
-
         return [
             'type' => 'Feature',
-            'geometry' => [
-                'type' => 'Polygon',
-                'coordinates' => [
-                    $coordinates
-                ]
-            ],
-            'properties' => $properties
+            'geometry' => $this->geometry,
+            'properties' => $this->properties
         ];
     }
 }
