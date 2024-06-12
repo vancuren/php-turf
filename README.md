@@ -221,4 +221,4 @@ Contributions are welcome! Please feel free to submit pull requests or open issu
 
 ## License
 
-This project is licensed under the GNU AGPLv3 License. See the ~[LICENSE](LICENSE.md)~ file for details.
+This project is licensed under the GNU AGPLv3 License. See the [LICENSE](https://github.com/vancuren/php-turf/blob/main/LICENSE.md) file for details.
