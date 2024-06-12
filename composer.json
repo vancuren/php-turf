@@ -1,6 +1,7 @@
 {
     "name": "vancuren/php-turf",
     "description": "A PHP library for geospatial analysis similar to Turf.js",
+    "keywords": ["turf", "turf.js", "geospatial", "analysis", "gis", "geojson", "geometry", "math", "spatial", "topology", "vector"],
     "license": "AGPL-3.0-or-later",
     "type": "library",
     "autoload": {
@@ -13,7 +14,9 @@
             "name": "Russell Van Curen"
         }
     ],
-    "require": {},
+    "require": {
+        "php": "^7.1 || ^8.0"
+    },    
     "require-dev": {
         "phpunit/phpunit": "^9.5"
     },
