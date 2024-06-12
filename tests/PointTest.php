@@ -62,5 +62,66 @@ class PointTest extends TestCase
 
         $this->assertEquals(41.8781, $nearestPoint->latitude, '', 0.1); // Chicago, IL
         $this->assertEquals(-87.6298, $nearestPoint->longitude, '', 0.1);
-    }    
+    }
+
+    public function testGetGeometry()
+    {
+        $point = new Point(40.7486, -73.9864); // New York, NY
+
+        $actual = $point->getGeometry();
+
+        $expected = [
+            'type' => 'Point',
+            'coordinates' => [-73.9864, 40.7486]
+        ];
+        $this->assertEquals($expected, $actual);
+    }
+
+    public function testToGeoJSON()
+    {
+        $point = new Point(40.7486, -73.9864); // New York, NY
+
+        $actual = $point->toGeoJSON();
+
+        $expected = [
+            'type' => 'Feature',
+            'geometry' => [
+                'type' => 'Point',
+                'coordinates' => [-73.9864, 40.7486]
+            ],
+            'properties' => []
+        ];
+        $this->assertEquals(json_encode($expected), json_encode($actual));
+    }
+
+    public function testToGeoJSONWithProperties()
+    {
+        $point = new Point(40.7486, -73.9864); // New York, NY
+
+        $actual = $point->toGeoJSON(['name' => 'New York']);
+
+        $expected = [
+            'type' => 'Feature',
+            'geometry' => [
+                'type' => 'Point',
+                'coordinates' => [-73.9864, 40.7486]
+            ],
+            'properties' => ['name' => 'New York']
+        ];
+        $this->assertEquals(json_encode($expected), json_encode($actual));
+    }
+
+    public function testToString()
+    {
+        $point = new Point(40.7486, -73.9864); // New York, NY
+
+        $this->assertEquals('(40.7486, -73.9864)', $point->toString());
+    }
+
+    public function testToArray()
+    {
+        $point = new Point(40.7486, -73.9864); // New York, NY
+
+        $this->assertEquals([40.7486, -73.9864], $point->toArray());
+    }
 }

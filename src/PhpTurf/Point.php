@@ -96,6 +96,37 @@ class Point {
         }
 
         return $nearestPoint;
-    }    
-  
+    }
+
+    public function getGeometry() {
+        return [
+            'type' => 'Point',
+            'coordinates' => [$this->longitude, $this->latitude]
+        ];
+    }
+
+    // Convert the point to a GeoJSON feature
+    public function toGeoJSON($properties = [])
+    {
+        return [
+            'type' => 'Feature',
+            'geometry' => [
+                'type' => 'Point',
+                'coordinates' => [$this->longitude, $this->latitude]
+            ],
+            'properties' => $properties
+        ];
+    }
+
+    // Convert the point to a string
+    public function toString()
+    {
+        return "($this->latitude, $this->longitude)";
+    }
+
+    // Convert the point to an array
+    public function toArray()
+    {
+        return [$this->latitude, $this->longitude];
+    }
 }

@@ -10,11 +10,6 @@ class Polygon {
         $this->vertices = $vertices;
     }
 
-    public function getVertices()
-    {
-        return $this->vertices;
-    }
-
     public function area()
     {
         $vertices = $this->vertices;
@@ -31,6 +26,11 @@ class Polygon {
         return $area;
     }
 
+    public function getVertices()
+    {
+        return $this->vertices;
+    }
+
     public function containsPoint(Point $point)
     {
         $vertices = $this->vertices;
@@ -45,5 +45,49 @@ class Polygon {
         }
 
         return $contains;
+    }
+
+    public function getGeometry() 
+    {
+        $vertices = $this->vertices;
+        $numVertices = count($vertices);
+        $geometry = [];
+
+        for ($i = 0; $i < $numVertices; $i++) {
+            $geometry[] = [$vertices[$i]->longitude, $vertices[$i]->latitude];
+        }
+
+        $geometry[] = [$vertices[0]->longitude, $vertices[0]->latitude];
+
+        return [
+            'type' => 'Polygon',
+            'coordinates' => [
+                $geometry
+            ]
+        ];
+    }
+
+    public function toGeoJSON($properties = [])
+    {
+        $vertices = $this->vertices;
+        $numVertices = count($vertices);
+        $coordinates = [];
+
+        for ($i = 0; $i < $numVertices; $i++) {
+            $coordinates[] = [$vertices[$i]->longitude, $vertices[$i]->latitude];
+        }
+
+        $coordinates[] = [$vertices[0]->longitude, $vertices[0]->latitude];
+
+        return [
+            'type' => 'Feature',
+            'geometry' => [
+                'type' => 'Polygon',
+                'coordinates' => [
+                    $coordinates
+                ]
+            ],
+            'properties' => $properties
+        ];
     }
 }
