@@ -31,7 +31,7 @@ $point1 = new Point([-73.9864, 40.7486]); *// New York, NY*
 $point2 = new Point([-118.2437, 34.0522]); *// Los Angeles, CA*
 
 *// Calculate distance between points*
-$distance = Point::distance($point1, $point2);
+$distance = Measurement::distance($point1, $point2);
 echo "Distance between New York and Los Angeles: " . $distance . " kilometers\n";
 ```
 
@@ -90,10 +90,10 @@ $featureCollection = new FeatureCollection($features);
 Returns the polygon’s area
 
 ```php
-$vertices = [[[0, 0],[0, 4],[3, 4],[3, 0],[0, 0]]];
+$coords = [[[0, 0],[0, 4],[3, 4],[3, 0],[0, 0]]];
 
-$polygon = new Polygon($vertices);
-$area = $polygon->area();
+$polygon = new Polygon($coords);
+$area = Measurement::area($polygon);
 ```
 
 #### Bearing
@@ -104,7 +104,7 @@ Calculate the bearing between two points
 $point1 = new Point([-73.9864, 40.7486]); *// New York, NY*
 $point2 = new Point([-118.2437, 34.0522]); *// Los Angeles, CA*
 
-$bearing = Point::bearing($point1, $point2);
+$bearing = Measurement::bearing($point1, $point2);
 ```
 
 #### Destination
@@ -116,7 +116,7 @@ $point = new Point([-73.9864, 40.7486]); *// New York, NY*
 $distance = 3944; *// Roughly the distance to Los Angeles, CA*
 $bearing = 273; *// Bearing to Los Angeles, CA*
 
-$destination = Point::destination($point, $distance, $bearing);
+$destination = Measurement::destination($point, $distance, $bearing);
 ```
 
 #### Distance
@@ -127,7 +127,7 @@ Calculate the distance between two points
 $point1 = new Point([-73.9864, 40.7486]); *// New York, NY*
 $point2 = new Point([-118.2437, 34.0522]); *// Los Angeles, CA*
 
-$distance = Point::distance($point1, $point2);
+$distance = Measurement::distance($point1, $point2);
 ```
 
 #### Midpoint
@@ -138,7 +138,7 @@ Calculate the midpoint between two points
 $point1 = new Point([-73.9864, 40.7486]); *// New York, NY*
 $point2 = new Point([-118.2437, 34.0522]); *// Los Angeles, CA*
 
-$midpoint = Point::midpoint($point1, $point2);
+$midpoint = Measurement::midpoint($point1, $point2);
 ```
 
 ### Coordinate Mutation
@@ -168,7 +168,7 @@ $points = [
     new Point([-95.3698, 29.7604])   *// Houston, TX*
 ];
 
-$nearestPoint = Point::nearestPoint($referencePoint, $points);
+$nearestPoint = Measurement::nearestPoint($referencePoint, $points);
 ```
 
 #### Contains Point
@@ -193,7 +193,7 @@ $isPointInside = $polygon->containsPoint($outsidePoint); // FALSE
 
 #### Get Points
 
-Returns the points that create the line string
+Returns the points that create the line string.
 
 ```php
 $points = [
