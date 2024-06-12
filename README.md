@@ -2,10 +2,10 @@
 
 PHP Turf is a PHP library for geospatial analysis similar to Turf.js.
 
-[Installation](#installation)
-[Example](#example)
-[Usage](#usage)
-[Contributing](#contributing)
+- [Installation](#installation)
+- [Example](#example)
+- [Usage](#usage)
+- [Contributing](#contributing)
 
 ## Installation
 
