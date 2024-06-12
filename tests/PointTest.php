@@ -22,8 +22,13 @@ class PointTest extends TestCase
 
         $midpoint = Point::midpoint($point1, $point2);
 
-        $this->assertEquals(39.530415216651974, $midpoint->latitude, '', 0.1);
-        $this->assertEquals(-97.15709254069252, $midpoint->longitude, '', 0.1);
+        $precision = 3;
+
+        $lat = number_format((float) $midpoint->latitude, $precision, '.', '');
+        $lng = number_format((float) $midpoint->longitude, $precision, '.', '');
+        
+        $this->assertEquals(39.530, $lat, '', 0.1);
+        $this->assertEquals(-97.157, $lng, '', 0.1);
     }
 
     public function testBearing()
