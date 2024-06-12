@@ -1,0 +1,21 @@
+{
+    "name": "vancuren/php-turf",
+    "version": "1.0.0",
+    "description": "A PHP library for geospatial analysis similar to Turf.js",
+    "license": "AGPL-3.0-or-later",
+    "type": "library",
+    "autoload": {
+        "psr-4": {
+            "Vancuren\\PhpTurf\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Russell Van Curen"
+        }
+    ],
+    "require": {},
+    "require-dev": {
+        "phpunit/phpunit": "^9.5"
+    }
+}
