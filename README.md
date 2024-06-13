@@ -173,7 +173,7 @@ $nearestPoint = Measurement::nearestPoint($referencePoint, $points);
 
 #### Contains Point
 
-Checks to see if a polygon contains a point
+Checks to see if a polygon contains a point.
 
 ```php
 $vertices = [[[0, 0],[0, 4],[3, 4],[3, 0],[0, 0]]];
