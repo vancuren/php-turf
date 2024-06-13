@@ -39,6 +39,22 @@ class Measurement {
       return fmod($bearing + 360, 360.0);
   }
 
+  public static function center(FeatureCollection $featureCollection)
+    {
+        $xSum = 0;
+        $ySum = 0;
+        $numPoints = 0;
+    
+        foreach ($featureCollection->features as $feature) {
+            $point = new Point($feature->geometry['coordinates']);
+            $xSum += $point->geometry['coordinates'][0];
+            $ySum += $point->geometry['coordinates'][1];
+            $numPoints++;
+        }
+    
+        return new Point([$xSum / $numPoints, $ySum / $numPoints]);
+    }
+
   // Calculate the distance between two points
   public static function distance(Point $point1, Point $point2)
   {
