@@ -107,6 +107,22 @@ $point2 = new Point([-118.2437, 34.0522]); *// Los Angeles, CA*
 $bearing = Measurement::bearing($point1, $point2);
 ```
 
+#### Center
+
+Takes a Feature or FeatureCollection and returns the absolute center point of all features.
+
+```php
+$points = [
+    new Point([-73.9864, 40.7486]), // New York, NY
+    new Point([-118.2437, 34.0522]), // Los Angeles, CA
+    new Point([-87.6298, 41.8781]), // Chicago, IL
+    new Point([-95.3698, 29.7604]) // Houston, TX
+];
+
+$featureCollection = new FeatureCollection($points);
+$center = Measurement::center($featureCollection);
+```
+
 #### Destination
 
 Calculate the destination point from a given point, distance, and bearing
