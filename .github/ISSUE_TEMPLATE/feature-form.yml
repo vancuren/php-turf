@@ -15,7 +15,7 @@ body:
       required: false
   - type: textarea
     id: implementation_pr
-    attributes:gi
+    attributes:
       label: "Implementation PR"
       description: Pull request used
       placeholder: "#Pull Request ID"
