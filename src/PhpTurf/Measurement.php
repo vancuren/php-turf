@@ -6,22 +6,24 @@ class Measurement {
 
   public function __construct() { }
 
+    //   Calculate the area of a polygon in square kilometers
   public static function area($feature)
   {
       $vertices = $feature->geometry['coordinates'][0];
       $numVertices = count($vertices);
       $area = 0;
+      $x1 = $y1 = $x2 = $y2 = 0;
+      
+        for ($i = 0; $i < $numVertices; $i++) {
+            $x1 = $vertices[$i][0];
+            $y1 = $vertices[$i][1];
+            $x2 = $vertices[($i + 1) % $numVertices][0];
+            $y2 = $vertices[($i + 1) % $numVertices][1];
+            $area += deg2rad($x2 - $x1) * (2 + sin( deg2rad($y1) ) + sin(deg2rad($y2) ) );
+        }
 
-      for ($i = 0, $j = $numVertices - 1; $i < $numVertices; $j = $i++) {
-          $xi = $vertices[$i][0];
-          $yi = $vertices[$i][1];
-          $xj = $vertices[$j][0];
-          $yj = $vertices[$j][1];
-          $area += ($xi + $xj) * ($yj - $yi);
-      }
-
-      $area = abs($area) / 2.0;
-      return $area;
+        $area = $area * 6378137 * 6378137 / 2;
+        return abs($area);
   }
 
   // Calculate the bearing between two points
