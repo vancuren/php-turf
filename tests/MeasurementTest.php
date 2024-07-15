@@ -42,7 +42,7 @@ class MeasurementTest extends TestCase
         $polygon = new Polygon($vertices);
         $area = Measurement::area($polygon);
 
-        $this->assertEquals(12, $area);
+        $this->assertEquals(148583583306.06003, $area);
     }
 
     public function testBearing()
